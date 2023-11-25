@@ -4,7 +4,7 @@
    * @param {string} imgID imgタグのID
    * @param {function} nextFunc ファイルの属性を取り出した後に実行する関数
    */
-  function afterImageFileLoaded(imgID ,nextFunc) {
+  function getImgAttrAfterFileLoaded(imgID ,nextFunc) {
     const ID = document.getElementById(imgID);
 
     let image = new Image();
