@@ -1,3 +1,4 @@
+<script>
   /**
    * GASの画像ファイルIDの内容をbase64で読み込む
    * @param {string} GASFileID GASの画像ファイルID
@@ -14,3 +15,4 @@
       .withFailureHandler(console.error)
       .getBae64Image(GASFileID); 
   }
+</script>
