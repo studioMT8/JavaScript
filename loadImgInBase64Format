@@ -5,7 +5,7 @@
    * @param {string} imgID imgタグのID
    * @param {function} nextFunc base64で読み込んだ後に実行する関数
    */
-  function loadBae64Image(GASFileID ,imgID ,nextFunc) {
+  function loadImgInBae64Format(GASFileID ,imgID ,nextFunc) {
     const url = google.script.run
       .withSuccessHandler(base64Data => {
         if(nextFunc !== undefined) {
@@ -13,6 +13,6 @@
         }
       })
       .withFailureHandler(console.error)
-      .getBae64Image(GASFileID); 
+      .loadImgInBase64Format(GASFileID);  //see https://github.com/studioMT8/googleAppsScript/blob/main/loadImgInBae64Format
   }
 </script>
