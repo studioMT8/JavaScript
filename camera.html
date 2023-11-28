@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <style>
+    #cameraFinder {
+      width:200px;
+      height:200px;
+    }
+  </style>
+</head>
+<body>
+  <video id="cameraFinderV" autoplay width="200" height="200"></video>
+  <div id="fileDimension"></div>
+</body>
+<script src="js/camera.js"></script>
+<script>
+  window.addEventListener('load',function(){
+    cameraInit();
+  });
+
+  function cameraInit() {
+    var camera = new cameraDevice();
+    camera.setFinderDimension(750 ,250);
+    camera.setPictureDimension(1500 ,500);
+    camera.setFinderElementID("cameraFinderV");
+
+    camera.open(true);
+  }
+</script>
+</html>
