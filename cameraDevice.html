@@ -11,20 +11,15 @@
 </head>
 <body>
   <video id="cameraFinderV" autoplay width="200" height="200"></video>
-  <div id="fileDimension"></div>
 </body>
-<script src="js/camera.js"></script>
+<script src="js/cameraDeviceClass.js"></script>
 <script>
   window.addEventListener('load',function(){
     cameraInit();
   });
 
   function cameraInit() {
-    var camera = new cameraDevice();
-    camera.setFinderDimension(750 ,250);
-    camera.setPictureDimension(1500 ,500);
-    camera.setFinderElementID("cameraFinderV");
-
+    var camera = new cameraDevice(1500 ,500 ,750 ,250 ,"cameraFinderV");
     camera.open(true);
   }
 </script>
