@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+</head>
+<body>
+  <input type="file" id="fileIDA" name="fileNameA" onchange="getImgFileAttrAfterFileRead('fileIDA' ,dispDimension)"><br>
+  <img id="gasImageFileB" onload="getImgFileAttrAfterFileLoaded('gasImageFileB' ,callBackFunc)"><br>
+  <br>
+  <input type="button" value="GASの画像ファイル読み込み" onclick="c()"><br>
+  <img id="gasImageFileC">
+</body>
+<script src="js/images.js"></script>
+<script>
+  function c() {
+    loadImgInBase64Image("1fU8iiGmr7QM2RxgXuFmOabkWZS0d1mLg" ,"gasImageFileC" ,showGASImageFile);
+  }
+
+  function dispDimension(result) {
+    alert("Hi!! " + result.width + " " + result.height);
+  }
+</script>
+</html>
