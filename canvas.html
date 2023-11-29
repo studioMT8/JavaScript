@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+<style>
+  #imgSample {
+    width:256px;
+    height:128px;
+  }
+</style>
+</head>
+<body>
+  <img id="imgSample" src="https://xxxxxxxx"><br>
+  サイズ: 2560 x 1920 ピクセル<br>
+  <input type="button" value="Aに表示" onclick="show('A')">
+  <input type="button" value="Bに表示" onclick="show('B')"><br>
+
+  canvasA<br>
+  <canvas id="canvasA" width="200" height="200"></canvas><br>
+
+  canvasB<br>
+  <canvas id="canvasB" width="200" height="200"></canvas><br>
+</body>
+<script src="js/canvasClass.js"></script>
+<script>
+  var canvasA;
+  var canvasB;
+
+  window.addEventListener('load',function(){
+    canvasInit();
+  });
+
+  function canvasInit() {
+    canvasA = new canvas("canvasA");
+    canvasA.setDimensions(256 ,128 ,256 ,128);
+
+    canvasB = new canvas("canvasB");
+    canvasB.setDimensions(256 ,128 ,256 ,128);
+  }
+
+  function show(id) {
+    if(id == "A") {
+      canvasB.clear();
+      canvasA.showImageFull("imgSample" ,2560 ,1920);
+    } else {
+      canvasA.clear();
+      canvasB.showImageFull("imgSample" ,2560 ,1920);
+    }
+  }
+</script>
+</html>
