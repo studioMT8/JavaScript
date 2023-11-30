@@ -1,5 +1,5 @@
 <script>
-class canvas {
+class canvasClass {
   /**
    * カンバスの定義
    * @param {HTMLElement} canvasElementID カンバスのエレメントID
