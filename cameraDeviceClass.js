@@ -1,5 +1,5 @@
 <script>
-class cameraDevice {
+class cameraDeviceClass {
   /**
    * コンストラクタ
    * @param {number} pictWidth 撮影する幅の画素数
