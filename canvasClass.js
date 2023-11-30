@@ -43,9 +43,21 @@ class canvasClass {
 
   /**
    * 画像全域をクリア
+   * canvasタグの左上からの領域をクリア
    */
   clear() {
     this.canvasEle.getContext("2d").clearRect(0, 0, this.canvasEle.width, this.canvasEle.height);
+  }
+
+  /**
+   * 画像全域をクリア
+   * canvasタグの全領域をクリア
+   */
+  clearAll() {
+    var width  = this.canvasEle.clientWidth;
+    var height = this.canvasEle.clientHeight;
+
+    this.canvasEle.getContext("2d").clearRect(0, 0, width, height);
   }
 }
 </script>
