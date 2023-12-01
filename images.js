@@ -57,7 +57,7 @@ function loadImgInBase64Image(GASFileID ,imgID ,nextFunc) {
       }
     })
     .withFailureHandler(console.error)
-    .loadImageInBae64Format(GASFileID); 
+    .loadImgInBae64Format(GASFileID); 
 }
 
 /**
