@@ -2,22 +2,22 @@
 class canvasClass {
   /**
    * カンバスの定義
-   * @param {HTMLElement} canvasElementID カンバスのエレメントID
+   * @param canvasEleID カンバスのエレメントID
    */
-  constructor(canvasElementID) {
-    this.canvasID  = canvasElementID;                           //カンバスのhtmlElementID
-    this.canvasEle = document.getElementById(canvasElementID);  //カンバスのhtmlElement
+  constructor(canvasEleID) {
+    this.canvasID  = canvasEleID;                           //カンバスのエレメントID
+    this.canvasEle = document.getEleById(canvasElementID);  //カンバスのエレメント
   }
 
   /**
    * カンバスの大きさの指定
-   * @param {number} canvasWidth カンバスの横方向の画素数
-   * @param {number} canvasHeight カンバスの縦方向の画素数
-   * @param {number} showWidth 見た目の横方向の画素数
-   * @param {number} showHeight 見た目の縦方向の画素数
+   * @param canvasWidth カンバスの横方向の画素数
+   * @param canvasHeight カンバスの縦方向の画素数
+   * @param showWidth 見た目の横方向の画素数
+   * @param showHeight 見た目の縦方向の画素数
    */
   setDimensions(canvasWidth ,canvasHeight ,showWidth ,showHeight) {
-    //表示の大きさ
+    //カンバスエレメントの大きさ
     this.canvasEle.style.width  = showWidth  + "px";
     this.canvasEle.style.height = showHeight + "px";
 
@@ -27,10 +27,10 @@ class canvasClass {
   }
 
   /**
-   * 画像全域表示
-   * @param {HTMLElement} pictEleID 表示する画像があるエレメントID
-   * @param {number} imgDispWidth 画像の表示幅
-   * @param {number} imgDispHeight 画像の表示高さ
+   * imgタグの画像表示
+   * @param pictEleID 表示する画像があるエレメントID
+   * @param imgDispWidth 画像の横方向の表示範囲
+   * @param imgDispHeight 画像の縦方向の表示範囲
    */
   showImageFullFromImgTag(pictEleID ,imgDispWidth ,imgDispHeight) {
     const pictEle = document.getElementById(pictEleID);
@@ -42,10 +42,10 @@ class canvasClass {
   }
 
   /**
-   * 画像全域表示
-   * @param {HTMLElement} imgObj Imageオブジェクト
-   * @param {number} imgDispWidth 画像の表示幅
-   * @param {number} imgDispHeight 画像の表示高さ
+   * imageオブジェクトの画像表示
+   * @param imgObj Imageオブジェクト
+   * @param imgDispWidth 画像の横方向の表示範囲
+   * @param imgDispHeight 画像の縦方向の表示範囲
    */
   showImageFullFromImgVal(imgObj ,imgDispWidth ,imgDispHeight) {
     this.clear();
@@ -58,9 +58,11 @@ class canvasClass {
   /**
    * 画像全域をクリア
    * canvasタグの左上からの領域をクリア
+   * @param clearWidth 画像の横方向のクリア範囲
+   * @param clearHeight 画像の縦方向のクリア範囲
    */
-  clear() {
-    this.canvasEle.getContext("2d").clearRect(0, 0, this.canvasEle.width, this.canvasEle.height);
+  clear(clearWidth ,clearHeight) {
+    this.canvasEle.getContext("2d").clearRect(0, 0, clearWidth ,clearHeight);
   }
 
   /**
@@ -68,10 +70,7 @@ class canvasClass {
    * canvasタグの全領域をクリア
    */
   clearAll() {
-    var width  = this.canvasEle.clientWidth;
-    var height = this.canvasEle.clientHeight;
-
-    this.canvasEle.getContext("2d").clearRect(0, 0, width, height);
+    this.canvasEle.getContext("2d").clearRect(0, 0, this.canvasEle.width, this.canvasEle.height);
   }
 }
 </script>
