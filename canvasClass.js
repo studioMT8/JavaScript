@@ -32,10 +32,24 @@ class canvasClass {
    * @param {number} imgDispWidth 画像の表示幅
    * @param {number} imgDispHeight 画像の表示高さ
    */
-  showImageFull(pictEleID ,imgDispWidth ,imgDispHeight) {
+  showImageFullFromImgTag(pictEleID ,imgDispWidth ,imgDispHeight) {
     const pictEle = document.getElementById(pictEleID);
     this.clear();
     this.canvasEle.getContext("2d").drawImage(pictEle,
+      0, 0, imgDispWidth ,imgDispHeight , //画像のどの範囲を表示するか
+      0, 0, this.canvasEle.width, this.canvasEle.height   //カンバスのどの範囲に表示するか
+    );
+  }
+
+  /**
+   * 画像全域表示
+   * @param {HTMLElement} imgObj Imageオブジェクト
+   * @param {number} imgDispWidth 画像の表示幅
+   * @param {number} imgDispHeight 画像の表示高さ
+   */
+  showImageFullFromImgVal(imgObj ,imgDispWidth ,imgDispHeight) {
+    this.clear();
+    this.canvasEle.getContext("2d").drawImage(imgObj,
       0, 0, imgDispWidth ,imgDispHeight , //画像のどの範囲を表示するか
       0, 0, this.canvasEle.width, this.canvasEle.height   //カンバスのどの範囲に表示するか
     );
