@@ -4,20 +4,48 @@
   <base target="_top">
 </head>
 <body>
-  <input type="file" id="fileIDA" name="fileNameA" onchange="getImgFileAttrAfterFileRead('fileIDA' ,dispDimension)"><br>
-  <img id="gasImageFileB" onload="getImgFileAttrAfterFileLoaded('gasImageFileB' ,callBackFunc)"><br>
+  <input type="file" id="fileIDA" name="fileNameA" onchange="showLocalImgFile('fileIDA' ,'localImgFile' ,afterLoadLocalFile)"><br>
+  <img id="localImgFile">
   <br>
-  <input type="button" value="GASの画像ファイル読み込み" onclick="c()"><br>
+  <img id="imgSample" src="https://mt8.studio/wbasep/wp-content/uploads/2021/04/P4010095-scaled.jpg" style="width:256px;height:192px;" onload="showServerImgFile('imgSample' ,afterLoadServerFile)"><br>
+  サイズ: 2560 x 1920 ピクセル<br>
+  <br>
+  <input type="button" value="GASの画像ファイル読み込み" onclick="loadGAS('gasImageFileC' ,afterLoadGASFile)"><br>
   <img id="gasImageFileC">
+  <script src="js/imageClass.js"></script>
 </body>
-<script src="js/images.js"></script>
 <script>
-  function c() {
-    loadImgInBase64Image("1fU8iiGmr7QM2RxgXuFmOabkWZS0d1mLg" ,"gasImageFileC" ,showGASImageFile);
+  let imgA;
+  let imgB;
+  let imgC;
+
+  function showLocalImgFile(inputFileID ,imgTagID ,nextFunc) {
+    imgA = new image();
+    imgA.localImgFile(inputFileID ,imgTagID ,nextFunc);
   }
 
-  function dispDimension(result) {
-    alert("Hi!! " + result.width + " " + result.height);
+  function afterLoadLocalFile() {
+    alert("afterLoadLocalFile");
+  }
+
+
+  function showServerImgFile(inputFileID ,nextFunc) {
+    imgB = new image();
+    imgB.serverImgFile(inputFileID ,nextFunc);
+  }
+
+  function afterLoadServerFile() {
+    alert("afterLoadServerFile");
+  }
+
+
+  function loadGAS(imgTagID ,nextFunc) {
+    imgC = new image();
+    imgC.GASImgFile("1fU8iiGmr7QM2RxgXuFmOabkWZS0d1mLg" ,imgTagID ,nextFunc);
+  }
+
+  function afterLoadGASFile() {
+    alert("afterLoadGASFile");
   }
 </script>
 </html>
