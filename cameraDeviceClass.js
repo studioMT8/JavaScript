@@ -59,7 +59,7 @@ class cameraDeviceClass {
    * カメラを使えるようにする
    * @param {bool} openFinder ファインダーを開くか
    */
-  open(openFinder) {
+  prepare(openFinder) {
     /* カメラの選択 */
     //リアカメラの仕様の定義
     const rearCameraSpec = {
@@ -88,22 +88,24 @@ class cameraDeviceClass {
           //リアカメラがあればそれを使う
           this.stream = stream;
           this.usingCamera = rearCameraSpec;
-          console.log("リアカメラあり");
+          //console.log("リアカメラあり");
           if(openFinder) {
-            this.openFinder();
+            var self = this;
+            self.openFinder();
           }
         })
         .catch((err) => {
-          console.log(err.name + ": " + err.message + "　リアカメラなし");
+          //console.log(err.name + ": " + err.message + "　リアカメラなし");
 
           //リアカメラがなければフロントカメラを使う
           navigator.mediaDevices.getUserMedia(frontCameraSpec)
             .then((stream) => {
               this.stream = stream;
               this.usingCamera = frontCameraSpec;
-              console.log("フロントカメラあり");
+              //console.log("フロントカメラあり");
               if(openFinder) {
-                this.openFinder();
+                var self = this;
+                self.openFinder();
               }
             })
           });
@@ -114,7 +116,8 @@ class cameraDeviceClass {
         .then((stream) => {
           this.stream = stream;
           if(openFinder) {
-            this.openFinder();
+            var self = this;
+            self.openFinder();
           }
         })
     }
@@ -131,19 +134,27 @@ class cameraDeviceClass {
     this.finderEle.width  = this.finderWidth;
     this.finderEle.height = this.finderHeight;
 
+console.debug("camera ");
+console.debug(this.finderEle.style.width + " " + this.finderEle.style.height);
+console.debug(this.pictWidth + " " + this.pictHeight);
+
+console.debug(this.usingCamera.video.width + " " + this.usingCamera.video.height);
+
+
+
+
     //ビデオストリームを取り出してカメラを表示
     this.finderEle.srcObject = this.stream;
+
     this.finderEle.onloadedmetadata = (e) => {
-      console.log("撮影開始");
       this.finderEle.play();
     };
   }
 
   /**
    * シャッターボタン押下
-   * @param {HTMLElement} takenPictureCanvasID 撮影した画像を表示するcanvasエレメントID
    */
-  takePicture(takenPictureCanvasID) {
+  takePicture() {
     // 演出的な目的で一度映像を止めてSEを再生する
     this.finderEle.pause();  // 映像を停止
     //se.play();      // シャッター音
@@ -156,11 +167,9 @@ class cameraDeviceClass {
    * カメラファインダーを閉じる
    */
   closeFinder() {
-    /*
     this.finderEle.srcObject.getTracks().forEach(function(track) {
       track.stop();
     });
-    */
 
     //      this.finderEle.pause();
     //      this.finderEle.stop();
@@ -181,6 +190,23 @@ class cameraDeviceClass {
 
   getFinderEle() {
     return this.finderEle;
+  }
+
+
+  getPictWidth() {
+    return this.pictWidth;
+  }
+
+  getPictHeight() {
+    return this.pictHeight;
+  }
+
+  getFinderWidth() {
+    return this.finderWidth;
+  }
+
+  getFinderHeight() {
+    return this.finderHeight;
   }
 }
 </script>
