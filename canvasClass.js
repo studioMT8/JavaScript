@@ -37,8 +37,8 @@ class canvasClass {
     var self = this;
     self.clear();
     this.canvasEle.getContext("2d").drawImage(pictEle,
-      0, 0, imgDispWidth ,imgDispHeight , //画像のどの範囲を表示するか
-      0, 0, this.canvasEle.width, this.canvasEle.height   //カンバスのどの範囲に表示するか
+      0, 0, imgDispWidth ,imgDispHeight ,                //画像のどの範囲を表示するか
+      0, 0, this.canvasEle.width, this.canvasEle.height  //カンバスのどの範囲に表示するか
     );
   }
 
@@ -52,8 +52,8 @@ class canvasClass {
     var self = this;
     self.clear();
     this.canvasEle.getContext("2d").drawImage(imgObj,
-      0, 0, imgDispWidth ,imgDispHeight , //画像のどの範囲を表示するか
-      0, 0, this.canvasEle.width, this.canvasEle.height   //カンバスのどの範囲に表示するか
+      0, 0, imgDispWidth ,imgDispHeight ,                //画像のどの範囲を表示するか
+      0, 0, this.canvasEle.width, this.canvasEle.height  //カンバスのどの範囲に表示するか
     );
   }
 
