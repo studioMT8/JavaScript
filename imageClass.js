@@ -25,12 +25,6 @@ class imageClass {
     this.dispEleID = "";    //表示するエレメントID
     this.fileName  = "";    //ファイル名
     this.fileExt   = "";    //ファイル名拡張子
-
-    /*
-    Object.defineProperty(self ,"srcType_LOCAL"  ,{value: "LOCAL"});
-    Object.defineProperty(self ,"srcType_SERVER" ,{value: "SERVER"});
-    Object.defineProperty(self ,"srcType_GAS"    ,{value: "GAS"});
-    */
   }
 
   /**
@@ -66,8 +60,6 @@ class imageClass {
             if(callback !== undefined) {
               callback(this);
             }
-          } else {
-            //              self.showGASImg(this.imgObj ,imgInstance.canvasID ,callback);
           }
         }
       }
@@ -181,42 +173,61 @@ class imageClass {
 
   /**
    * カメラで撮影した画像の表示と属性の取り出し
-   * @param cameraFinder カメラファインダークラス
+   * @param cameraClass カメラクラス
    * @param videoTagID カメラのvideoタグのID
    * @param dispWidth 画像の表示幅 0のときは高さに合わせる
    * @param dispHeight 画像の表示高さ 0のときは幅に合わせる
    * @param imgInstance 撮影した画像を表示するimgやcanvasのインスタンス
    * @param callback ファイルの属性を取り出した後に実行する関数
    */
-  cameraImg(cameraFinder ,videoTagID ,dispWidth ,dispHeight ,imgInstance ,callback) {
+  cameraImg(cameraClass ,videoTagID ,dispWidth ,dispHeight ,imgInstance ,callback) {
     var self = this;
     const ele = document.getElementById(videoTagID);
     self.imgObj = new Image();
     self.imgObj.src = ele.src;          //URL.createObjectURL(ele.files[0]);
 
-//      self.imgObj.onload = function() {
-      //正味の大きさ
-      this.width  = cameraFinder.getPictWidth();
-      this.height = cameraFinder.getPictHeight();
+    //正味の大きさ
+    let longSide  = cameraClass.getPictWidth();
+    let shortSide = cameraClass.getPictHeight();
 
-      this.type   = IMG_SRC_TYPE_PHOTO;
-      this.loaded = true;
-      self.dispEleID = imgInstance.canvasID;
-      //表示するエレメントIDが指定されていれば画像を表示する
-      if(imgInstance !== undefined) {
-        if (imgInstance.canvasEle instanceof HTMLCanvasElement) {
-          var dispDim = calcWidthHeight(this.width ,this.height ,dispWidth ,dispHeight);
-          imgInstance.setDimensions(dispDim["width"] ,dispDim["height"] ,dispDim["width"] ,dispDim["height"]);
-          imgInstance.showImageFullFromImgVal(cameraFinder.finderEle ,this.width ,this.height);
-        } else {
-          //              self.showGASImg(this.imgObj ,imgInstance.canvasID ,callback);
-        }
+    if(longSide <= shortSide) {
+      let tmp = longSide;
+      longSide = shortSide;
+      shortSide = tmp;
+    }
+    if(dispWidth >= dispHeight) {
+      //横長のとき
+      this.width  = longSide;
+      this.height = shortSide;
+    } else {
+      //縦長のとき
+      this.width  = shortSide;
+      this.height = longSide;
+    }
 
-        if(callback !== undefined) {
-          callback(this);
-        }
+    this.type   = IMG_SRC_TYPE_PHOTO;
+    this.loaded = true;
+    self.dispEleID = imgInstance.canvasID;
+    //表示するエレメントIDが指定されていれば画像を表示する
+    if(imgInstance !== undefined) {
+      if(imgInstance.canvasEle instanceof HTMLCanvasElement) {
+        var dispDim = calcWidthHeight(this.width ,this.height ,dispWidth ,dispHeight);
+        imgInstance.setDimensions(dispWidth ,dispHeight ,dispWidth ,dispHeight);
+        imgInstance.showImageFullFromImgVal(cameraClass.finderEle ,this.width ,this.height);
       }
-//      }
+
+      if(callback !== undefined) {
+        callback(this);
+      }
+    }
+  }
+
+  /**
+   * 画素数の取り出し
+   * @return 画像の画素数
+   */
+  getPixels() {
+    return {WIDTH : this.width ,HEIGHT : this.height};
   }
 }
 </script>
