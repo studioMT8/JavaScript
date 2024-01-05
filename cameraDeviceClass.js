@@ -2,11 +2,11 @@
 class cameraDeviceClass {
   /**
    * コンストラクタ
-   * @param {number} pictWidth 撮影する幅の画素数
-   * @param {number} pictHeight 撮影する高さの画素数
-   * @param {number} finderWidth ファインダーの幅の画素数
-   * @param {number} finderHeight ファインダーの高さの画素数
-   * @param {string} finderElementID ファインダーとして使うvideoのelementID
+   * @param pictWidth 撮影する幅の画素数
+   * @param pictHeight 撮影する高さの画素数
+   * @param finderWidth ファインダーの幅の画素数
+   * @param finderHeight ファインダーの高さの画素数
+   * @param finderElementID ファインダーとして使うvideoのelementID
    */
   constructor(pictWidth ,pictHeight ,finderWidth ,finderHeight ,finderElementID) {
     this.finderEleID = null;  //ファインダーのhtmlElementID
@@ -28,8 +28,8 @@ class cameraDeviceClass {
 
   /**
    * ファインダーの画素数の指定
-   * @param {number} finderWidth ファインダーの幅の画素数
-   * @param {number} finderHeight ファインダーの高さの画素数
+   * @param finderWidth ファインダーの幅の画素数
+   * @param finderHeight ファインダーの高さの画素数
    */
   setFinderDimension(finderWidth ,finderHeight) {
     this.finderWidth  = finderWidth;
@@ -38,8 +38,8 @@ class cameraDeviceClass {
 
   /**
    * 撮影する画素数の指定
-   * @param {number} pictWidth 撮影する幅の画素数
-   * @param {number} pictHeight 撮影する高さの画素数
+   * @param pictWidth 撮影する幅の画素数
+   * @param pictHeight 撮影する高さの画素数
    */
   setPictureDimension(pictWidth ,pictHeight) {
     this.pictWidth  = pictWidth;
@@ -48,7 +48,7 @@ class cameraDeviceClass {
 
   /**
    * ファインダーとして使うcanvasのelementID
-   * @param {string} finderElementID elementID
+   * @param finderElementID elementID
    */
   setFinderElementID(finderElementID) {
     this.finderEleID = finderElementID;
@@ -57,7 +57,7 @@ class cameraDeviceClass {
 
   /**
    * カメラを使えるようにする
-   * @param {bool} openFinder ファインダーを開くか
+   * @param openFinder ファインダーを開くか
    */
   prepare(openFinder) {
     /* カメラの選択 */
@@ -67,6 +67,11 @@ class cameraDeviceClass {
       video: {
         width : this.pictWidth  ,
         height: this.pictHeight ,
+        /*
+        width : {ideal: this.pictWidth },
+        height: {ideal: this.pictHeight},
+        */
+
         facingMode: {exact: "environment"}
       }
     };
@@ -77,6 +82,11 @@ class cameraDeviceClass {
       video: {
         width : this.pictWidth  ,
         height: this.pictHeight ,
+        /*
+        width : {ideal: this.pictWidth },
+        height: {ideal: this.pictHeight},
+        */
+
         facingMode: "user"
       }
     };
@@ -95,14 +105,11 @@ class cameraDeviceClass {
           }
         })
         .catch((err) => {
-          //console.log(err.name + ": " + err.message + "　リアカメラなし");
-
           //リアカメラがなければフロントカメラを使う
           navigator.mediaDevices.getUserMedia(frontCameraSpec)
             .then((stream) => {
               this.stream = stream;
               this.usingCamera = frontCameraSpec;
-              //console.log("フロントカメラあり");
               if(openFinder) {
                 var self = this;
                 self.openFinder();
@@ -134,15 +141,6 @@ class cameraDeviceClass {
     this.finderEle.width  = this.finderWidth;
     this.finderEle.height = this.finderHeight;
 
-console.debug("camera ");
-console.debug(this.finderEle.style.width + " " + this.finderEle.style.height);
-console.debug(this.pictWidth + " " + this.pictHeight);
-
-console.debug(this.usingCamera.video.width + " " + this.usingCamera.video.height);
-
-
-
-
     //ビデオストリームを取り出してカメラを表示
     this.finderEle.srcObject = this.stream;
 
@@ -170,10 +168,6 @@ console.debug(this.usingCamera.video.width + " " + this.usingCamera.video.height
     this.finderEle.srcObject.getTracks().forEach(function(track) {
       track.stop();
     });
-
-    //      this.finderEle.pause();
-    //      this.finderEle.stop();
-
     this.finderEle.srcObject = null;
   }
 
